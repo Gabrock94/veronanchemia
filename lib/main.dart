@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:better_player/better_player.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 final Uri _website = Uri.parse('https://www.veronanchemia.it/');
 final Uri _privacy = Uri.parse('https://www.veronanchemia.it/app/privacy.html');
@@ -216,13 +217,6 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: const EdgeInsets.all(25),
         child: Column(
           children: [
-            // Text(
-            //   "Verona è spesso chiamata città della musica, dell’amore, dell’arte e grazie alle mura che nei secoli sono state costruite per difenderla, è stata nel 2000 riconosciuta come Patrimonio Unesco.\n\nDa oltre duemila anni la città è abitata e in ogni piazza e strada si trovano le tracce di questa lunga e interessante storia.\n\nVi suggeriamo quattro itinerari, della durata variabile tra un’ora e mezza e due ore e mezza. Per ciascuno troverete le tappe con tracciato gps, una descrizione, un video di approfondimento.\n",
-            //   style: const TextStyle(
-            //     color: Colors.black,
-            //     fontSize: 22,
-            //   ),
-            // ),
             Text(
               "Seleziona un Tour",
               style: const TextStyle(
@@ -451,6 +445,22 @@ class tourPage extends StatelessWidget {
                   ),
                 ),
               ),
+              Text("\nApprofondimento Video", style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              InkWell(
+                onTap: (){
+
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) =>  videoPage(video: tour.video)));
+                },
+                child:
+                LocationListItem(
+                  imageUrl: tour.video.preview,
+                  name: tour.video.title,
+                  country: "",
+                ),
+              ),
+              Text("\nInizia il Tour", style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               InkWell(
                 onTap: (){
                   Navigator.push(
@@ -677,14 +687,24 @@ class credits extends StatelessWidget {
                     ),
                   ),
                   RichText(
-                    text: TextSpan(text: 'In collaborazione con: ', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 16,),
+                    text: TextSpan(text: 'Iniziativa realizzata da: ', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 16,),
                       children:[],
                     ),
                   ),
                   Padding(padding: const EdgeInsets.all(15)),
                   Image.asset("assets/mentelibera.png"),
+                  RichText(
+                    text: TextSpan(text: 'Con il sostegno di: ', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 16,),
+                      children:[],
+                    ),
+                  ),
                   Padding(padding: const EdgeInsets.all(15)),
                   Image.asset("assets/valdese.png"),
+                  RichText(
+                    text: TextSpan(text: 'In collaborazione con: ', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 16,),
+                      children:[],
+                    ),
+                  ),
                   Padding(padding: const EdgeInsets.all(15)),
                   Image.asset("assets/Goldvis.jpeg"),
                   Padding(padding: const EdgeInsets.all(15)),
@@ -716,7 +736,20 @@ class intro extends StatelessWidget {
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Verona è spesso chiamata città della musica, dell’amore, dell’arte e grazie alle mura che nei secoli sono state costruite per difenderla, è stata nel 2000 riconosciuta come Patrimonio Unesco.\nDa oltre duemila anni la città è abitata e in ogni piazza e strada si trovano le tracce di questa lunga e interessante storia.\nVi suggeriamo quattro itinerari, della durata variabile tra un’ora e mezza e due ore e mezza. Per ciascuno troverete le tappe con tracciato gps, una descrizione, un video di approfondimento.\n“Verona for all”, il primo itinerario è il  più breve, vi guiderà nel centro della città ed è consigliato  a chi non conosce Verona o non ha molto tempo a disposizione, ma vuole vedere i luoghi imperdibili.\nIl secondo, “Verona for all plus”, di circa due ore, ricalca per alcuni tratti il primo, ma aggiunge tappe in luoghi limitrofi al centro.\bQuesti due itinerari sono accessibili anche a persone con disabilità motorie.\nLa terza proposta, “ Un assaggio di Veronetta”,  vi condurrà nel quartiere  a sinistra Adige, con una tappa  panoramica al colle di Castel San Pietro. Può essere abbinato ai primi due o fatto da solo, è una variazione interessante per chi è già stato in città, ha più tempo o desidera conoscere zone meno note.\nIl quarto percorso “Tre tesori senza tempo: Castelvecchio, San Zeno, Arsenale Austriaco” si svolge nella zona periferica del centro, più tranquilla, tra Castelvecchio e San Zeno e include una visita all’area dell’Arsenale austriaco. Questa ultima tappa è stata pensata e realizzata in collaborazione con una classe terza del Liceo Scientifico dell’Istituto Copernico Pasoli di Verona.\nA voi serve solo un po’ di curiosità! Benvenuti a Verona!", style: const TextStyle(fontSize: 16)),
+                        AspectRatio(
+                          aspectRatio: 16 / 9,
+                          child: BetterPlayer.network(
+                            "https://www.veronanchemia.it/app/videolancio.mp4",
+                            betterPlayerConfiguration: BetterPlayerConfiguration(
+                              aspectRatio: 16 / 9,
+                              autoPlay: true,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 25),
+                        ),
+                        Text("Verona è spesso chiamata città della musica, dell’amore, dell’arte e grazie alle mura che nei secoli sono state costruite per difenderla, è stata nel 2000 riconosciuta come Patrimonio Unesco.\nDa oltre duemila anni la città è abitata e in ogni piazza e strada si trovano le tracce di questa lunga e interessante storia.\nVi suggeriamo quattro itinerari, della durata variabile tra un’ora e mezza e due ore e mezza. Per ciascuno troverete le tappe con tracciato gps, una descrizione, un video di approfondimento.\n“Verona for all”, il primo itinerario è il  più breve, vi guiderà nel centro della città ed è consigliato  a chi non conosce Verona o non ha molto tempo a disposizione, ma vuole vedere i luoghi imperdibili.\nIl secondo, “Verona for all plus”, di circa due ore, ricalca per alcuni tratti il primo, ma aggiunge tappe in luoghi limitrofi al centro.\nQuesti due itinerari sono accessibili anche a persone con disabilità motorie.\nLa terza proposta, “ Un assaggio di Veronetta”,  vi condurrà nel quartiere  a sinistra Adige, con una tappa  panoramica al colle di Castel San Pietro. Può essere abbinato ai primi due o fatto da solo, è una variazione interessante per chi è già stato in città, ha più tempo o desidera conoscere zone meno note.\nIl quarto percorso “Tre tesori senza tempo: Castelvecchio, San Zeno, Arsenale Austriaco” si svolge nella zona periferica del centro, più tranquilla, tra Castelvecchio e San Zeno e include una visita all’area dell’Arsenale austriaco. Questa ultima tappa è stata pensata e realizzata in collaborazione con una classe terza del Liceo Scientifico dell’Istituto Copernico Pasoli di Verona.\nA voi serve solo un po’ di curiosità! Benvenuti a Verona!", style: const TextStyle(fontSize: 16)),
                       ]
                   )
               ),
@@ -826,20 +859,37 @@ class gallery extends StatelessWidget {
         appBar: AppBar(
           title: Text('Gallery'),
         ),
-        body: PhotoViewGallery.builder(
-          itemCount: imageList.length,
-          builder: (context, index) {
-            return PhotoViewGalleryPageOptions(
-              imageProvider: AssetImage(imageList[index]),
-              minScale: PhotoViewComputedScale.contained * 0.8,
-              maxScale: PhotoViewComputedScale.covered * 2,
-            );
-          },
-        scrollPhysics: BouncingScrollPhysics(),
-        backgroundDecoration: BoxDecoration(
-          color: Theme.of(context).canvasColor,
-        ),
-      ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Implement the image carousel
+              CarouselSlider(
+                options: CarouselOptions(
+                  autoPlay: false,
+                  // autoPlayInterval: const Duration(seconds: 2),
+                  // autoPlayAnimationDuration: const Duration(milliseconds: 400),
+                  // height: 800,
+                  viewportFraction: 1,
+                ),
+                items: imageList.map((item) {
+                  return GridTile(
+                    child: Image.asset(item["url"], fit: BoxFit.cover),
+                    footer: Container(
+                        padding: const EdgeInsets.all(15),
+                        color: Colors.black54,
+                        child: Text(
+                          item["caption"],
+                          style: const TextStyle(color: Colors.white, fontSize: 20),
+                          textAlign: TextAlign.right,
+                        )),
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
+        )
     );
   }
 }
