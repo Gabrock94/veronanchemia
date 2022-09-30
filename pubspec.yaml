@@ -29,6 +29,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations: # Add this line
+      sdk: flutter         # Add this lin
+
   cupertino_icons: ^1.0.2
   flutter_native_splash: ^2.2.8 #This is for the custom splash screen
   async_loader: ^0.1.2
