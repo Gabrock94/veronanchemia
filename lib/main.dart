@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:photo_view/photo_view.dart';
-import 'package:photo_view/photo_view_gallery.dart';
 import 'package:better_player/better_player.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -661,13 +659,11 @@ class credits extends StatelessWidget {
         appBar: AppBar(
           title: Text('Crediti'),
         ),
-        body: ListView(
-          children:[
-          Padding(
-            padding: const EdgeInsets.all(25),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+        body: SingleChildScrollView(
+        padding: const EdgeInsets.all(25),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
                   RichText(
                     text: TextSpan(text: 'Concettualizzazione: ', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 16,),
                       children:  <TextSpan>[
@@ -723,31 +719,29 @@ class credits extends StatelessWidget {
                     ),
                   ),
                   Padding(padding: const EdgeInsets.all(15)),
-                  Image.asset("assets/mentelibera.png"),
+                  Image.asset("assets/mentelibera.png", semanticLabel:"Associazione AMEntelibera"),
                   RichText(
                     text: TextSpan(text: 'Con il sostegno di: ', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 16,),
                       children:[],
                     ),
                   ),
                   Padding(padding: const EdgeInsets.all(15)),
-                  Image.asset("assets/valdese.png"),
+                  Image.asset("assets/valdese.png", semanticLabel:"otto per mille Chiesa Valdese. Unione delle chiese metodiste e valdesi"),
                   RichText(
                     text: TextSpan(text: 'In collaborazione con: ', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 16,),
                       children:[],
                     ),
                   ),
                   Padding(padding: const EdgeInsets.all(15)),
-                  Image.asset("assets/Goldvis.jpeg"),
+                  Image.asset("assets/Goldvis.jpeg", semanticLabel:"Goldvis Onlus. Guardare oltre la disabilità visiva"),
                   Padding(padding: const EdgeInsets.all(15)),
-                  Image.asset("assets/GenitoriTosti.png"),
+                  Image.asset("assets/GenitoriTosti.png", semanticLabel:"A P S onlus genitori tosti. Associazione di genitori di figli con disabilità"),
                   Padding(padding: const EdgeInsets.all(15)),
-                  Image.asset("assets/copernico.png"),
+                  Image.asset("assets/copernico.png", semanticLabel: "I.I.S.S. Copernico Pasoli - Liceo e ITES"),
                 ]
             )
           ),
-        ]
-        )
-    );
+        );
   }
 }
 
@@ -772,7 +766,7 @@ class intro extends StatelessWidget {
                             "https://www.veronanchemia.it/app/videolancio.mp4",
                             betterPlayerConfiguration: BetterPlayerConfiguration(
                               aspectRatio: 16 / 9,
-                              autoPlay: true,
+                              autoPlay: false,
                             ),
                           ),
                         ),
@@ -857,7 +851,7 @@ class videoPage extends StatelessWidget {
                       video.source,
                       betterPlayerConfiguration: BetterPlayerConfiguration(
                         aspectRatio: 16 / 9,
-                        autoPlay: true,
+                        autoPlay: false,
                       ),
                     ),
                   ),
