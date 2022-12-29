@@ -8,6 +8,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 final Uri _website = Uri.parse('https://www.veronanchemia.it/');
 final Uri _privacy = Uri.parse('https://www.veronanchemia.it/app/privacy.html');
+final Uri _comuneverona = Uri.parse('https://www.comune.verona.it');
+final Uri _museiverona = Uri.parse('https://www.museiverona.com');
+final Uri _chieseverona = Uri.parse('https://www.chieseverona.it');
 
 void main() {
   runApp(const MyApp());
@@ -747,7 +750,7 @@ class credits extends StatelessWidget {
 
 class intro extends StatelessWidget {
   const intro({super.key});
-  final String testopagina = "Verona è spesso chiamata città della musica, dell' amore, dell' arte e grazie alle mura che nei secoli sono state costruite per difenderla, è stata nel 2000 riconosciuta come Patrimonio Unesco.\nDa oltre duemila anni la città è abitata e in ogni piazza e strada si trovano le tracce di questa lunga e interessante storia.\nVi suggeriamo quattro itinerari, della durata variabile tra un' ora e mezza e due ore e mezza. Per ciascuno troverete le tappe con tracciato gps, una descrizione, un video di approfondimento.\n Verona for all, il primo itinerario è il più breve. Vi guiderà nel centro della città ed è consigliato a chi non conosce Verona o non ha molto tempo a disposizione, ma vuole vedere i luoghi imperdibili. \nIl secondo, Verona for all plus, di circa due ore, ricalca per alcuni tratti il primo, ma aggiunge tappe in luoghi limitrofi al centro.\nQuesti due itinerari sono accessibili anche a persone con disabilità motorie.\nLa terza proposta, Un assaggio di Veronetta, vi condurrà nel quartiere a sinistra Adige, con una tappa panoramica al colle di Castel San Pietro. Può essere abbinato ai primi due o fatto da solo, è una variazione interessante per chi è già stato in città, ha più tempo o desidera conoscere zone meno note.\nIl quarto percorso Tre tesori senza tempo: Castelvecchio, San Zeno, Arsenale Austriaco si svolge nella zona periferica del centro, più tranquilla, tra Castelvecchio e San Zeno e include una visita all' area dell' Arsenale austriaco. Questa ultima tappa è stata pensata e realizzata in collaborazione con una classe terza del Liceo Scientifico dell' Istituto Copernico Pasoli di Verona.\nA voi serve solo un po' di curiosità! Benvenuti a Verona !\nPer avere orari e costi aggiornati di musei e chiese vi consigliamo di consultare questi siti:\nwww.comune.verona.it \nwww.museiverona.com\nwww.chieseverona.it";
+  final String testopagina = "Verona è spesso chiamata città della musica, dell' amore, dell' arte e grazie alle mura che nei secoli sono state costruite per difenderla, è stata nel 2000 riconosciuta come Patrimonio Unesco.\nDa oltre duemila anni la città è abitata e in ogni piazza e strada si trovano le tracce di questa lunga e interessante storia.\nVi suggeriamo quattro itinerari, della durata variabile tra un' ora e mezza e due ore e mezza. Per ciascuno troverete le tappe con tracciato gps, una descrizione, un video di approfondimento.\n Verona for all, il primo itinerario è il più breve. Vi guiderà nel centro della città ed è consigliato a chi non conosce Verona o non ha molto tempo a disposizione, ma vuole vedere i luoghi imperdibili. \nIl secondo, Verona for all plus, di circa due ore, ricalca per alcuni tratti il primo, ma aggiunge tappe in luoghi limitrofi al centro.\nQuesti due itinerari sono accessibili anche a persone con disabilità motorie.\nLa terza proposta, Un assaggio di Veronetta, vi condurrà nel quartiere a sinistra Adige, con una tappa panoramica al colle di Castel San Pietro. Può essere abbinato ai primi due o fatto da solo, è una variazione interessante per chi è già stato in città, ha più tempo o desidera conoscere zone meno note.\nIl quarto percorso Tre tesori senza tempo: Castelvecchio, San Zeno, Arsenale Austriaco si svolge nella zona periferica del centro, più tranquilla, tra Castelvecchio e San Zeno e include una visita all' area dell' Arsenale austriaco. Questa ultima tappa è stata pensata e realizzata in collaborazione con una classe terza del Liceo Scientifico dell' Istituto Copernico Pasoli di Verona.\nA voi serve solo un po' di curiosità! Benvenuti a Verona !\nPer avere orari e costi aggiornati di musei e chiese vi consigliamo di consultare questi siti:";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -771,10 +774,45 @@ class intro extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 25),
+                          padding: const EdgeInsets.only(top: 10),
                         ),
-                        for (String paragraph in testopagina.split("\n")) Container(child:Text(paragraph, style: const TextStyle(fontSize: 16)), margin: EdgeInsets.only(bottom: 24),)
-
+                        for (String paragraph in testopagina.split("\n")) Container(child:Text(paragraph, style: const TextStyle(fontSize: 16)), margin: EdgeInsets.only(bottom: 24),),
+                        InkWell(
+                          child: Text("www.comune.verona.it", style: const TextStyle(
+                            color: Colors.blue,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          )),
+                          onTap: (){
+                            _launchUrl(_comuneverona);
+                          },
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                        ),
+                        InkWell(
+                          child: Text("www.museiverona.com", style: const TextStyle(
+                            color: Colors.blue,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          )),
+                          onTap: (){
+                            _launchUrl(_museiverona);
+                          },
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                        ),
+                        InkWell(
+                          child: Text("www.chieseverona.it", style: const TextStyle(
+                            color: Colors.blue,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          )),
+                          onTap: (){
+                            _launchUrl(_chieseverona);
+                          },
+                        )
                       ]
                   )
               )
