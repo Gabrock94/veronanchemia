@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:better_player/better_player.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+// import 'package:carousel_slider/carousel_slider.dart';
+// import 'package:carousel_slider/carousel_controller.dart' as cs;
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 final Uri _website = Uri.parse('https://www.veronanchemia.it/');
@@ -11,6 +12,7 @@ final Uri _privacy = Uri.parse('https://www.veronanchemia.it/app/privacy.html');
 final Uri _comuneverona = Uri.parse('https://www.comune.verona.it');
 final Uri _museiverona = Uri.parse('https://www.museiverona.com');
 final Uri _chieseverona = Uri.parse('https://www.chieseverona.it');
+// final cs.CarouselController _controller = cs.CarouselController();
 
 void main() {
   runApp(const MyApp());
@@ -905,47 +907,88 @@ class videoPage extends StatelessWidget {
   }
 }
 
-class gallery extends StatelessWidget {
+class gallery extends StatefulWidget {
   const gallery({super.key, required this.imageList});
   final List imageList;
 
   @override
+  State<gallery> createState() => _galleryState();
+}
+
+class _galleryState extends State<gallery> {
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Gallery'),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Implement the image carousel
-              CarouselSlider(
-                options: CarouselOptions(
-                  autoPlay: false,
-                  // autoPlayInterval: const Duration(seconds: 2),
-                  // autoPlayAnimationDuration: const Duration(milliseconds: 400),
-                  // height: 800,
-                  viewportFraction: 1,
-                ),
-                items: imageList.map((item) {
-                  return GridTile(
-                    child: Image.asset(item["url"], fit: BoxFit.cover),
-                    footer: Container(
+      appBar: AppBar(
+        title: const Text('Gallery'),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: PageView.builder(
+              controller: _pageController,
+              itemCount: widget.imageList.length,
+              onPageChanged: (index) {
+                setState(() {
+                  _currentPage = index;
+                });
+              },
+              itemBuilder: (context, index) {
+                final item = widget.imageList[index];
+                return Stack(
+                  children: [
+                    Positioned.fill(
+                      child: Image.asset(
+                        item["url"],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Container(
                         padding: const EdgeInsets.all(15),
                         color: Colors.black54,
                         child: Text(
                           item["caption"],
-                          style: const TextStyle(color: Colors.white, fontSize: 20),
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 20),
                           textAlign: TextAlign.right,
-                        )),
-                  );
-                }).toList(),
-              ),
-            ],
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
-        )
+          if (widget.imageList.length > 1)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(
+                  widget.imageList.length,
+                      (index) => Container(
+                    width: 8,
+                    height: 8,
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: _currentPage == index
+                          ? Colors.teal
+                          : Colors.grey[400],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
     );
   }
 }
